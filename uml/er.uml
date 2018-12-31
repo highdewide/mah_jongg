@@ -1,0 +1,50 @@
+@startuml mah_jongg
+title Mah Jongg ERDiagram
+entity "table_player" {
+	+ id [PK] 'プレイヤID
+	==
+	*name:varchar(128) 'プレイヤ名
+}
+
+entity "table_hanchan" {
+	+ id [PK] '半荘ID   
+	==
+	date:int '半荘日付
+	rate:int '半荘レート
+	chip_rate:int 'チップレート
+	kind:int '三人麻雀 or 四人麻雀 
+	#p1:int [FK(table_player, pid)] 'プレイヤ1 
+	#p2:int [FK(table_player, pid)] 'プレイヤ2
+	#p3:int [FK(table_player, pid)] 'プレイヤ3
+	#p4:int [FK(table_player, pid)] 'プレイヤ4
+	#p5:int [FK(table_player, pid)] 'プレイヤ5
+	#p6:int [FK(table_player, pid)] 'プレイヤ6
+	name:varchar(128) '半荘名
+}
+
+entity "table_result" {
+	+ id [PK] '結果ID
+	==
+	#hid:int [FK(table_hanchan,id)]
+	#pid:int [FK(table_player, id)]
+	kyoku:int '局
+	rank:int '着順
+	score:int '成績点
+}
+
+entity "table_chip_table" {
+	+ id [PK] 'チップID
+	==
+	#hid:int [FK(table_hanchan, id)]
+	#pid:int [FK(table_player, id)]
+	chips:int 'チップ枚数
+
+}
+
+table_player 	||--{ 	table_result
+table_player 	||--{ 	table_hanchan
+table_player 	||--{ 	table_chip_table
+table_hanchan 	||--{ 	table_result
+table_hanchan 	||--{ 	table_chip_table
+@enduml
+
