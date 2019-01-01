@@ -1,0 +1,32 @@
+@startuml
+
+class PlayerDTO{
+	-int _id 
+	-String _name
+
+	+int get_id()
+	+String  get_name()
+	+void set_id(int id)
+	+void set_name(String name)
+
+	+void create_user(String name)
+	+void fix_user(String name)
+	+void delete_user(int id)
+}
+
+class PlayerDAO{
+	+List<PlayerDTO> findAll()
+}
+
+class ChipDTO{
+	-int _id 
+	-int _chips
+
+	+int get_id()
+	+int  get_chips()
+	+void set_id(int id)
+	+void set_chips(int chips)
+}
+
+PlayerDAO<|--PlayerDTO
+@enduml
